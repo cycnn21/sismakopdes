@@ -1,78 +1,67 @@
-<section id="layanan" class="py-28 bg-gray-50">
+<section id="layanan" class="py-24 bg-gray-50">
 
     <div class="max-w-7xl mx-auto px-6">
 
         <div class="text-center">
 
-            <span class="text-red-700 font-semibold uppercase tracking-wider">
+            <span class="text-red-700 font-semibold uppercase tracking-widest">
                 Fitur Utama
             </span>
 
-            <h2 class="mt-3 text-4xl font-bold text-gray-900">
+            <h2 class="mt-4 text-4xl lg:text-5xl font-bold text-gray-900">
 
-                Semua Kebutuhan Koperasi Dalam Satu Sistem
+                Semua Kebutuhan Koperasi Dalam
+                <span class="text-red-700">Satu Sistem</span>
 
             </h2>
-
-            <p class="mt-5 text-gray-600 max-w-2xl mx-auto">
-
-                Kelola seluruh aktivitas koperasi dengan mudah melalui fitur-fitur yang terintegrasi.
-
-            </p>
 
         </div>
 
         <div class="grid lg:grid-cols-3 gap-8 mt-16">
 
-            <div class="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition duration-300">
+            <div class="bg-white rounded-3xl shadow-md p-10 hover:shadow-2xl hover:-translate-y-2 transition duration-300">
 
-                <div class="text-5xl">📦</div>
-
-                <h3 class="mt-6 text-xl font-bold">
+                <h3 class="text-2xl font-bold">
 
                     Inventaris Barang
 
                 </h3>
 
-                <p class="mt-3 text-gray-600">
+                <p class="mt-4 text-gray-600 leading-7">
 
-                    Mengelola stok barang, kategori, dan satuan secara terstruktur.
-
-                </p>
-
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition duration-300">
-
-                <div class="text-5xl">🧾</div>
-
-                <h3 class="mt-6 text-xl font-bold">
-
-                    Transaksi Penjualan
-
-                </h3>
-
-                <p class="mt-3 text-gray-600">
-
-                    Mencatat transaksi penjualan dengan cepat dan akurat.
+                    Kelola stok barang, kategori, dan satuan secara digital.
 
                 </p>
 
             </div>
 
-            <div class="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition duration-300">
+            <div class="bg-white rounded-3xl shadow-md p-10 hover:shadow-2xl hover:-translate-y-2 transition duration-300">
 
-                <div class="text-5xl">📊</div>
+                <h3 class="text-2xl font-bold">
 
-                <h3 class="mt-6 text-xl font-bold">
-
-                    Laporan
+                    Supplier
 
                 </h3>
 
-                <p class="mt-3 text-gray-600">
+                <p class="mt-4 text-gray-600 leading-7">
 
-                    Menampilkan laporan stok dan penjualan secara otomatis.
+                    Kelola seluruh data supplier dalam satu tempat.
+
+                </p>
+
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-md p-10 hover:shadow-2xl hover:-translate-y-2 transition duration-300">
+
+                <h3 class="text-2xl font-bold">
+
+                    Penjualan
+
+                </h3>
+
+                <p class="mt-4 text-gray-600 leading-7">
+
+                    Proses transaksi lebih cepat dan laporan dibuat otomatis.
 
                 </p>
 
