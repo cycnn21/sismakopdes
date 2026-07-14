@@ -1,16 +1,17 @@
-<section class="bg-gray-50">
+<section class="bg-gradient-to-b from-gray-50 to-white pt-3">
 
     <div class="max-w-7xl mx-auto px-6 py-24">
 
-        <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
 
+            <!-- Kiri -->
             <div>
 
-                <span class="bg-red-100 text-red-700 px-5 py-2 rounded-full font-semibold">
-                    Sistem Informasi Koperasi
+                <span class="inline-block bg-red-100 text-red-700 px-5 py-2 rounded-full font-semibold">
+                    Sistem Informasi Koperasi Desa
                 </span>
 
-                <h1 class="mt-8 text-6xl font-black leading-tight">
+                <h1 class="mt-8 text-5xl lg:text-6xl font-black leading-tight text-gray-900">
 
                     Kelola
 
@@ -18,27 +19,33 @@
                         Koperasi Desa
                     </span>
 
-                    Lebih Mudah
+                    Dengan
+
+                    <span class="text-red-700">
+                        Lebih Modern
+                    </span>
 
                 </h1>
 
-                <p class="mt-8 text-gray-600 text-lg leading-8">
+                <p class="mt-8 text-lg text-gray-600 leading-8">
 
-                    Sistem Manajemen Koperasi Desa Merah Putih membantu pengurus dalam mengelola inventaris, supplier, transaksi penjualan, dan laporan secara digital.
+                    SISMA KOPDES membantu pengurus koperasi dalam mengelola
+                    barang, supplier, transaksi penjualan, serta laporan
+                    secara cepat, aman, dan terintegrasi.
 
                 </p>
 
-                <div class="flex gap-5 mt-10">
+                <div class="flex flex-wrap gap-5 mt-10">
 
                     <a href="#"
-                        class="bg-red-700 text-white px-8 py-4 rounded-xl hover:bg-red-800 transition font-semibold">
+                        class="bg-red-700 hover:bg-red-800 text-white px-8 py-4 rounded-xl font-semibold shadow-lg transition duration-300">
 
                         Mulai Sekarang
 
                     </a>
 
                     <a href="#tentang"
-                        class="border border-red-700 text-red-700 px-8 py-4 rounded-xl hover:bg-red-700 hover:text-white transition font-semibold">
+                        class="border border-red-700 text-red-700 hover:bg-red-700 hover:text-white px-8 py-4 rounded-xl font-semibold transition duration-300">
 
                         Pelajari
 
@@ -48,11 +55,17 @@
 
             </div>
 
+            <!-- Kanan -->
             <div>
 
-                <img
-                    src="https://placehold.co/650x450/F8FAFC/C62828?text=Dashboard+SISMA+KOPDES"
-                    class="rounded-3xl shadow-xl w-full">
+                <div class="bg-white rounded-3xl shadow-2xl p-5 hover:scale-105 transition duration-500">
+
+                    <img
+                        src="https://placehold.co/700x450/F8FAFC/C62828?text=Dashboard+SISMA+KOPDES"
+                        alt="Dashboard"
+                        class="rounded-2xl w-full">
+
+                </div>
 
             </div>
 
@@ -60,4 +73,4 @@
 
     </div>
 
-</section>  
+</section>
