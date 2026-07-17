@@ -12,6 +12,7 @@
                 </div>
 
                 <div>
+
                     <h1 class="font-bold text-2xl text-gray-800">
                         SISMA KOPDES
                     </h1>
@@ -19,6 +20,7 @@
                     <p class="text-sm text-gray-500">
                         Desa Merah Putih
                     </p>
+
                 </div>
 
             </a>
@@ -26,21 +28,35 @@
             <!-- Desktop Menu -->
             <ul class="hidden lg:flex items-center gap-8 font-medium text-gray-700">
 
-                <li><a href="#" class="hover:text-red-700">Beranda</a></li>
-                <li><a href="#tentang" class="hover:text-red-700">Tentang</a></li>
-                <li><a href="#layanan" class="hover:text-red-700">Layanan</a></li>
-                <li><a href="#produk" class="hover:text-red-700">Produk</a></li>
-                <li><a href="#kontak" class="hover:text-red-700">Kontak</a></li>
+                <li><a href="#" class="hover:text-red-700 transition">Beranda</a></li>
+                <li><a href="#tentang" class="hover:text-red-700 transition">Tentang</a></li>
+                <li><a href="#layanan" class="hover:text-red-700 transition">Layanan</a></li>
+                <li><a href="#produk" class="hover:text-red-700 transition">Produk</a></li>
+                <li><a href="#kontak" class="hover:text-red-700 transition">Kontak</a></li>
 
             </ul>
 
-            <!-- Desktop Button -->
-            <div class="hidden lg:flex items-center">
+            <!-- Desktop Action -->
+            <div class="hidden lg:flex items-center gap-3">
 
-                <a href="/login"
-                    class="bg-red-700 hover:bg-red-800 text-white px-6 py-3 rounded-xl font-semibold transition">
+                <a href="{{ route('register') }}"
+                    class="border border-red-700 text-red-700 px-5 py-3 rounded-xl font-semibold hover:bg-red-700 hover:text-white transition">
+
+                    Daftar
+
+                </a>
+
+                <a href="{{ route('login.user') }}"
+                    class="bg-red-700 hover:bg-red-800 text-white px-5 py-3 rounded-xl font-semibold transition">
 
                     Login
+
+                </a>
+
+                <a href="{{ route('login.admin') }}"
+                    class="text-sm text-gray-400 hover:text-red-700 transition ml-2">
+
+                    Admin
 
                 </a>
 
@@ -58,7 +74,6 @@
         </div>
 
         <!-- Mobile Menu -->
-
         <div
             x-show="open"
             x-transition
@@ -84,10 +99,26 @@
                 Kontak
             </a>
 
-            <a href="/login"
-                class="block px-6 py-4 bg-red-700 text-white">
+            <hr>
 
-                Login
+            <a href="{{ route('register') }}"
+                class="block px-6 py-4 text-center hover:bg-gray-100">
+
+                Daftar Akun
+
+            </a>
+
+            <a href="{{ route('login.user') }}"
+                class="block px-6 py-4 text-center bg-red-700 text-white hover:bg-red-800">
+
+                Login User
+
+            </a>
+
+            <a href="{{ route('login.admin') }}"
+                class="block px-6 py-4 text-center text-gray-500 hover:bg-gray-100">
+
+                Login Administrator
 
             </a>
 

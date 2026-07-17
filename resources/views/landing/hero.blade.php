@@ -1,6 +1,6 @@
-<section class="bg-gradient-to-b from-gray-50 to-white pt-3">
+<section class="bg-gradient-to-b from-gray-50 to-white pt-2">
 
-    <div class="max-w-7xl mx-auto px-6 py-24">
+    <div class="max-w-7xl mx-auto px-6 py-20">
 
         <div class="grid lg:grid-cols-2 gap-16 items-center">
 
@@ -11,7 +11,7 @@
                     Sistem Informasi Koperasi Desa
                 </span>
 
-                <h1 class="mt-8 text-5xl lg:text-6xl font-black leading-tight text-gray-900">
+                <h1 class="mt-2 text-5xl lg:text-6xl font-black leading-tight text-gray-900">
 
                     Kelola
 
@@ -27,7 +27,7 @@
 
                 </h1>
 
-                <p class="mt-8 text-lg text-gray-600 leading-8">
+                <p class="mt-5 text-lg text-gray-600 leading-8">
 
                     SISMA KOPDES membantu pengurus koperasi dalam mengelola
                     barang, supplier, transaksi penjualan, serta laporan
@@ -35,15 +35,14 @@
 
                 </p>
 
-                <div class="flex flex-wrap gap-5 mt-10">
+                <div class="flex flex-wrap gap-5 mt-8">
 
-                    <a href="#"
-                        class="bg-red-700 hover:bg-red-800 text-white px-8 py-4 rounded-xl font-semibold shadow-lg transition duration-300">
+                    <a href="{{ route('login.user') }}"
+                        class="bg-red-700 hover:bg-red-800 text-white px-8 py-4 rounded-xl transition">
 
                         Mulai Sekarang
 
                     </a>
-
                     <a href="#tentang"
                         class="border border-red-700 text-red-700 hover:bg-red-700 hover:text-white px-8 py-4 rounded-xl font-semibold transition duration-300">
 

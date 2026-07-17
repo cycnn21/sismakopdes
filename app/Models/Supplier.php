@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Barang;
+use App\Models\BarangMasuk;
 
 class Supplier extends Model
 {
@@ -10,11 +12,23 @@ class Supplier extends Model
         'nama_supplier',
         'alamat',
         'telepon',
-        'email'
+        'email',
+        'status',
+    ];
+
+    protected $attributes = [
+        'status' => 'aktif',
     ];
 
     public function barangs()
     {
         return $this->hasMany(Barang::class);
     }
+
+    public function barangMasuks()
+{
+    return $this->hasMany(
+        BarangMasuk::class
+    );
+}
 }
