@@ -4,15 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StokMasuk extends Model
+class Keranjang extends Model
 {
     protected $fillable = [
+
+        'user_id',
         'barang_id',
         'jumlah',
-        'tanggal',
-        'keterangan'
+
     ];
 
+
+    /**
+     * Relasi ke User
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
+    /**
+     * Relasi ke Barang
+     */
     public function barang()
     {
         return $this->belongsTo(Barang::class);
