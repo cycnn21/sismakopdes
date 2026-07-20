@@ -176,6 +176,12 @@ Nonaktif
 <td>
 
 <div class="flex justify-center gap-2">
+    <a href="{{ route('barang.show',$barang) }}"
+    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg">
+
+    Detail
+
+</a>
 
 <a
 href="{{ route('barang.edit',$barang->id) }}"

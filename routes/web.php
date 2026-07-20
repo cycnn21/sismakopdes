@@ -15,6 +15,9 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\User\CheckoutController;
+use App\Http\Controllers\User\RiwayatController;
+use App\Http\Controllers\Admin\TransaksiController;
 
 
 /*
@@ -26,7 +29,6 @@ use App\Http\Controllers\BarangKeluarController;
 Route::get('/', function () {
     return view('landing.index');
 });
-
 
 
 /*
@@ -63,7 +65,6 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Protected Routes
@@ -91,8 +92,6 @@ Route::middleware('auth')->group(function () {
         '/user/dashboard',
         [UserDashboardController::class, 'index']
     )->name('user.dashboard');
-
-
 
 
     /*
@@ -126,8 +125,6 @@ Route::middleware('auth')->group(function () {
     );
 
 
-
-
     /*
     |--------------------------------------------------------------------------
     | Transaksi Gudang
@@ -145,10 +142,6 @@ Route::middleware('auth')->group(function () {
         'barang-keluar',
         BarangKeluarController::class
     );
-
-
-
-
 
     /*
     |--------------------------------------------------------------------------
@@ -175,10 +168,6 @@ Route::middleware('auth')->group(function () {
                 [UserDashboardController::class, 'index']
             )->name('dashboard');
 
-
-
-
-
             /*
             |--------------------------------------------------------------------------
             | Katalog Barang
@@ -198,10 +187,6 @@ Route::middleware('auth')->group(function () {
             )->name('katalog.show');
 
 
-
-
-
-
             /*
             |--------------------------------------------------------------------------
             | Keranjang
@@ -213,11 +198,6 @@ Route::middleware('auth')->group(function () {
                 'keranjang',
                 KeranjangController::class
             );
-
-
-
-
-
 
             /*
             |--------------------------------------------------------------------------
@@ -231,14 +211,8 @@ Route::middleware('auth')->group(function () {
                 function () {
 
                     return view('user.riwayat.index');
-
                 }
             )->name('riwayat.index');
-
-
-
-
-
 
 
             /*
@@ -253,14 +227,47 @@ Route::middleware('auth')->group(function () {
                 function () {
 
                     return view('user.profile.index');
-
                 }
             )->name('profile.index');
 
+            /*
+|--------------------------------------------------------------------------
+| Checkout
+|--------------------------------------------------------------------------
+*/
 
+            Route::get(
+                '/checkout',
+                [CheckoutController::class, 'index']
+            )->name('checkout.index');
 
+            Route::post(
+                '/checkout',
+                [CheckoutController::class, 'store']
+            )->name('checkout.store');
+
+            Route::get(
+                '/riwayat',
+                [RiwayatController::class, 'index']
+            )->name('riwayat.index');
+
+            Route::get(
+                '/riwayat/{transaksi}',
+                [RiwayatController::class, 'show']
+            )->name('riwayat.show');
         });
+    Route::prefix('admin')
+        ->name('admin.')
+        ->group(function () {
 
+            Route::get(
+                '/transaksi',
+                [TransaksiController::class, 'index']
+            )->name('transaksi.index');
 
-
+            Route::get(
+                '/transaksi/{transaksi}',
+                [TransaksiController::class, 'show']
+            )->name('transaksi.show');
+        });
 });

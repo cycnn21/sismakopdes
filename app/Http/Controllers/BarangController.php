@@ -7,6 +7,7 @@ use App\Models\KategoriBarang;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BarangController extends Controller
 {
@@ -19,9 +20,9 @@ class BarangController extends Controller
 
 
         $barangs = Barang::with([
-                'kategori',
-                'supplier'
-            ])
+            'kategori',
+            'supplier'
+        ])
 
             ->when($search, function ($query) use ($search) {
 
@@ -34,37 +35,32 @@ class BarangController extends Controller
                         "%{$search}%"
                     )
 
-                    ->orWhere(
-                        'kode_barang',
-                        'like',
-                        "%{$search}%"
-                    )
-
-
-                    ->orWhereHas('kategori', function ($kategori) use ($search) {
-
-                        $kategori->where(
-                            'nama_kategori',
+                        ->orWhere(
+                            'kode_barang',
                             'like',
                             "%{$search}%"
-                        );
-
-                    })
+                        )
 
 
-                    ->orWhereHas('supplier', function ($supplier) use ($search) {
+                        ->orWhereHas('kategori', function ($kategori) use ($search) {
 
-                        $supplier->where(
-                            'nama_supplier',
-                            'like',
-                            "%{$search}%"
-                        );
+                            $kategori->where(
+                                'nama_kategori',
+                                'like',
+                                "%{$search}%"
+                            );
+                        })
 
-                    });
 
+                        ->orWhereHas('supplier', function ($supplier) use ($search) {
 
+                            $supplier->where(
+                                'nama_supplier',
+                                'like',
+                                "%{$search}%"
+                            );
+                        });
                 });
-
             })
 
             ->latest()
@@ -100,9 +96,9 @@ class BarangController extends Controller
 
 
 
-        $suppliers = Supplier::orderBy(
-            'nama_supplier'
-        )->get();
+        $suppliers = Supplier::where('status', 'aktif')
+    ->orderBy('nama_supplier')
+    ->get();
 
 
 
@@ -134,7 +130,6 @@ class BarangController extends Controller
                 'satuans'
             )
         );
-
     }
 
 
@@ -149,42 +144,25 @@ class BarangController extends Controller
 
         $request->validate([
 
+            'kategori_barang_id' => 'required|exists:kategori_barangs,id',
 
-            'kategori_barang_id' =>
-                'required|exists:kategori_barangs,id',
+            'supplier_id' => 'required|exists:suppliers,id',
 
+            'nama_barang' => 'required|max:255',
 
-            'supplier_id' =>
-                'required|exists:suppliers,id',
+            'stok' => 'required|integer|min:0',
 
+            'harga_beli' => 'required|numeric|min:0',
 
-            'nama_barang' =>
-                'required|max:255',
+            'harga_jual' => 'required|numeric|gte:harga_beli',
 
+            'satuan' => 'required|max:30',
 
-            'stok' =>
-                'required|integer|min:0',
+            'status' => 'required|in:aktif,nonaktif',
 
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
 
-            'harga_beli' =>
-                'required|numeric|min:0',
-
-
-            'harga_jual' =>
-                'required|numeric|min:0',
-
-
-            'satuan' =>
-                'required|max:30',
-
-
-            'gambar' =>
-                'nullable|image|mimes:jpg,jpeg,png|max:2048',
-
-
-            'deskripsi' =>
-                'nullable'
-
+            'deskripsi' => 'nullable',
 
         ]);
 
@@ -203,7 +181,7 @@ class BarangController extends Controller
 
 
 
-        if($barangTerakhir){
+        if ($barangTerakhir) {
 
 
             $nomor = intval(
@@ -225,14 +203,10 @@ class BarangController extends Controller
                     '0',
                     STR_PAD_LEFT
                 );
-
-
-        }else{
+        } else {
 
 
             $kodeBarang = 'BRG-0001';
-
-
         }
 
 
@@ -251,7 +225,7 @@ class BarangController extends Controller
 
 
 
-        if($request->hasFile('gambar')){
+        if ($request->hasFile('gambar')) {
 
 
             $gambar = $request
@@ -260,8 +234,6 @@ class BarangController extends Controller
                     'barang',
                     'public'
                 );
-
-
         }
 
 
@@ -281,43 +253,40 @@ class BarangController extends Controller
 
 
             'kategori_barang_id' =>
-                $request->kategori_barang_id,
+            $request->kategori_barang_id,
 
 
             'supplier_id' =>
-                $request->supplier_id,
+            $request->supplier_id,
 
 
             'kode_barang' =>
-                $kodeBarang,
+            $kodeBarang,
 
 
             'nama_barang' =>
-                $request->nama_barang,
+            $request->nama_barang,
 
 
             'stok' =>
-                $request->stok,
+            $request->stok,
 
 
             'harga_beli' =>
-                $request->harga_beli,
+            $request->harga_beli,
 
 
             'harga_jual' =>
-                $request->harga_jual,
+            $request->harga_jual,
 
 
-            'satuan' =>
-                $request->satuan,
+            'satuan' => $request->satuan,
 
+            'gambar' => $gambar,
 
-            'gambar' =>
-                $gambar,
+            'status' => $request->status,
 
-
-            'deskripsi' =>
-                $request->deskripsi,
+            'deskripsi' => $request->deskripsi,
 
 
         ]);
@@ -334,8 +303,6 @@ class BarangController extends Controller
                 'success',
                 'Barang berhasil ditambahkan.'
             );
-
-
     }
 
 
@@ -354,7 +321,6 @@ class BarangController extends Controller
             'admin.barang.show',
             compact('barang')
         );
-
     }
 
 
@@ -374,9 +340,9 @@ class BarangController extends Controller
         )->get();
 
 
-        $suppliers = Supplier::orderBy(
-            'nama_supplier'
-        )->get();
+       $suppliers = Supplier::where('status', 'aktif')
+    ->orderBy('nama_supplier')
+    ->get();
 
 
 
@@ -408,7 +374,6 @@ class BarangController extends Controller
                 'satuans'
             )
         );
-
     }
 
 
@@ -423,45 +388,27 @@ class BarangController extends Controller
      */
     public function update(Request $request, Barang $barang)
     {
-
         $request->validate([
 
+            'kategori_barang_id' => 'required|exists:kategori_barangs,id',
 
-            'kategori_barang_id' =>
-                'required|exists:kategori_barangs,id',
+            'supplier_id' => 'required|exists:suppliers,id',
 
+            'nama_barang' => 'required|max:255',
 
-            'supplier_id' =>
-                'required|exists:suppliers,id',
+            'stok' => 'required|integer|min:0',
 
+            'harga_beli' => 'required|numeric|min:0',
 
-            'nama_barang' =>
-                'required|max:255',
+            'harga_jual' => 'required|numeric|gte:harga_beli',
 
+            'satuan' => 'required|max:30',
 
-            'stok' =>
-                'required|integer|min:0',
+            'status' => 'required|in:aktif,nonaktif',
 
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
 
-            'harga_beli' =>
-                'required|numeric|min:0',
-
-
-            'harga_jual' =>
-                'required|numeric|min:0',
-
-
-            'satuan' =>
-                'required|max:30',
-
-
-            'gambar' =>
-                'nullable|image|mimes:jpg,jpeg,png|max:2048',
-
-
-            'deskripsi' =>
-                'nullable'
-
+            'deskripsi' => 'nullable',
 
         ]);
 
@@ -474,14 +421,13 @@ class BarangController extends Controller
 
 
 
-        if($request->hasFile('gambar')){
+        if ($request->hasFile('gambar')) {
 
 
-            if($barang->gambar){
+            if ($barang->gambar) {
 
                 Storage::disk('public')
                     ->delete($barang->gambar);
-
             }
 
 
@@ -492,8 +438,6 @@ class BarangController extends Controller
                     'barang',
                     'public'
                 );
-
-
         }
 
 
@@ -506,39 +450,37 @@ class BarangController extends Controller
 
 
             'kategori_barang_id' =>
-                $request->kategori_barang_id,
+            $request->kategori_barang_id,
 
 
             'supplier_id' =>
-                $request->supplier_id,
+            $request->supplier_id,
 
 
             'nama_barang' =>
-                $request->nama_barang,
+            $request->nama_barang,
 
 
             'stok' =>
-                $request->stok,
+            $request->stok,
 
 
             'harga_beli' =>
-                $request->harga_beli,
+            $request->harga_beli,
 
 
             'harga_jual' =>
-                $request->harga_jual,
+            $request->harga_jual,
 
 
-            'satuan' =>
-                $request->satuan,
+            'satuan' => $request->satuan,
+
+            'status' => $request->status,
+
+            'gambar' => $gambar,
 
 
-            'gambar' =>
-                $gambar,
-
-
-            'deskripsi' =>
-                $request->deskripsi,
+            'deskripsi' => $request->deskripsi,
 
 
         ]);
@@ -556,7 +498,6 @@ class BarangController extends Controller
                 'success',
                 'Barang berhasil diperbarui.'
             );
-
     }
 
 
@@ -573,12 +514,11 @@ class BarangController extends Controller
     {
 
 
-        if($barang->gambar){
+        if ($barang->gambar) {
 
 
             Storage::disk('public')
                 ->delete($barang->gambar);
-
         }
 
 
@@ -597,7 +537,5 @@ class BarangController extends Controller
                 'success',
                 'Barang berhasil dihapus.'
             );
-
     }
-
 }

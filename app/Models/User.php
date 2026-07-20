@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\BarangMasuk;
 use App\Models\Keranjang;
 
+
 // Tambahkan import ini
 use App\Models\Transaksi;
 use App\Models\ActivityLog;
@@ -81,4 +82,5 @@ class User extends Authenticatable
             Keranjang::class
         );
     }
+    
 }

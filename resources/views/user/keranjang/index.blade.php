@@ -54,189 +54,224 @@ $total = 0;
 
 <div class="bg-white rounded-xl shadow overflow-hidden">
 
-<table class="w-full">
+    <table class="w-full">
 
-<thead class="bg-gray-100">
+        <thead class="bg-gray-100">
 
-<tr>
+            <tr>
 
-<th class="p-4">Foto</th>
-<th>Barang</th>
-<th>Harga</th>
-<th>Jumlah</th>
-<th>Subtotal</th>
-<th class="text-center">Aksi</th>
+                <th class="p-4">Foto</th>
+                <th>Barang</th>
+                <th>Harga</th>
+                <th>Jumlah</th>
+                <th>Subtotal</th>
+                <th class="text-center">Aksi</th>
 
-</tr>
+            </tr>
 
-</thead>
+        </thead>
 
-<tbody>
+        <tbody>
 
-@foreach($keranjangs as $item)
+            @foreach($keranjangs as $item)
 
-@php
+            @php
 
-$subtotal = $item->barang->harga_jual * $item->jumlah;
+            $subtotal = $item->harga * $item->jumlah;
 
-$total += $subtotal;
+            $total += $subtotal;
 
-@endphp
+            @endphp
 
-<tr class="border-t">
+            <tr class="border-t">
 
-<td class="p-4">
+                <td class="p-4">
 
-@if($item->barang->gambar)
+                    @if($item->barang->gambar)
 
-<img
-src="{{ asset('storage/'.$item->barang->gambar) }}"
-class="w-20 h-20 rounded-lg object-cover">
+                    <img
+                        src="{{ asset('storage/'.$item->barang->gambar) }}"
+                        class="w-20 h-20 rounded-lg object-cover">
 
-@else
+                    @else
 
-<div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
 
-📦
+                        📦
 
-</div>
+                    </div>
 
-@endif
+                    @endif
 
-</td>
+                </td>
 
-<td>
+                <td>
 
-<div class="font-semibold">
+                    <div class="font-semibold">
 
-{{ $item->barang->nama_barang }}
+                        {{ $item->barang->nama_barang }}
 
-</div>
+                    </div>
 
-<div class="text-gray-500 text-sm">
+                    <div class="text-gray-500 text-sm">
 
-{{ $item->barang->kategori->nama_kategori }}
+                        {{ $item->barang->kategori->nama_kategori }}
 
-</div>
+                    </div>
 
-</td>
+                </td>
 
-<td>
+                <td>
 
-Rp {{ number_format($item->barang->harga_jual,0,',','.') }}
+                    Rp {{ number_format($item->harga,0,',','.') }}
 
-</td>
+                </td>
 
-<td>
+                <td>
 
-<form
-action="{{ route('user.keranjang.update',$item->id) }}"
-method="POST"
-class="flex items-center gap-2">
+                    <form
+                        action="{{ route('user.keranjang.update',$item->id) }}"
+                        method="POST"
+                        class="flex items-center gap-2">
 
-@csrf
-@method('PUT')
+                        @csrf
+                        @method('PUT')
 
-<input
-type="number"
-name="jumlah"
-min="1"
-max="{{ $item->barang->stok }}"
-value="{{ $item->jumlah }}"
-class="w-24 border rounded-lg px-3 py-2">
+                        <input
+                            type="number"
+                            name="jumlah"
+                            min="1"
+                            max="{{ $item->barang->stok }}"
+                            value="{{ $item->jumlah }}"
+                            class="w-24 border rounded-lg px-3 py-2">
 
-<button
-class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">
+                        <button
+                            class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">
 
-Update
+                            Update
 
-</button>
+                        </button>
 
-</form>
+                    </form>
 
-</td>
+                </td>
 
-<td>
+                <td>
 
-Rp {{ number_format($subtotal,0,',','.') }}
+                    Rp {{ number_format($subtotal,0,',','.') }}
 
-</td>
+                </td>
 
-<td>
+                <td>
 
-<form
-action="{{ route('user.keranjang.destroy',$item->id) }}"
-method="POST">
+                    <form
+                        action="{{ route('user.keranjang.destroy',$item->id) }}"
+                        method="POST">
 
-@csrf
-@method('DELETE')
+                        @csrf
+                        @method('DELETE')
 
-<button
-onclick="return confirm('Hapus barang ini dari keranjang?')"
-class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-lg">
+                        <button
+                            onclick="return confirm('Hapus barang ini dari keranjang?')"
+                            class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-lg">
 
-Hapus
+                            Hapus
 
-</button>
+                        </button>
 
-</form>
+                    </form>
 
-</td>
+                </td>
 
-</tr>
+            </tr>
 
-@endforeach
+            @endforeach
 
-</tbody>
+        </tbody>
 
-</table>
+    </table>
 
 </div>
 
 
 <div class="bg-white rounded-xl shadow mt-6 p-6">
 
-<div class="flex justify-between items-center">
+    <div class="flex justify-between items-center">
 
-<div>
+        <div>
 
-<h2 class="text-2xl font-bold">
+            <h2 class="text-2xl font-bold">
 
-Total Belanja
+                Total Belanja
 
-</h2>
+            </h2>
 
-<p class="text-gray-500">
+            <p class="text-gray-500">
 
-{{ $keranjangs->count() }} Barang
+                {{ $keranjangs->count() }} Barang
 
-</p>
+            </p>
 
-</div>
+        </div>
 
-<div class="text-right">
+        <div class="text-right">
 
-<p class="text-3xl font-bold text-red-700">
+            <p class="text-3xl font-bold text-red-700">
 
-Rp {{ number_format($total,0,',','.') }}
+                Rp {{ number_format($total,0,',','.') }}
 
-</p>
+            </p>
 
-</div>
+        </div>
 
-</div>
+    </div>
+    <div class="space-y-2">
 
-<div class="mt-6 flex justify-end">
+        <div class="flex justify-between">
 
-<a
-href="#"
-class="bg-red-700 hover:bg-red-800 text-white px-8 py-4 rounded-xl font-semibold">
+            <span>Total Barang</span>
 
-Checkout
+            <span>{{ $keranjangs->sum('jumlah') }}</span>
 
-</a>
+        </div>
 
-</div>
+        <div class="flex justify-between">
+
+            <span>Total Jenis Barang</span>
+
+            <span>{{ $keranjangs->count() }}</span>
+
+        </div>
+
+        <div class="border-t pt-3 flex justify-between">
+
+            <span class="font-bold">
+
+                Total Bayar
+
+            </span>
+
+            <span class="text-2xl font-bold text-red-700">
+
+                Rp {{ number_format($total,0,',','.') }}
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="mt-6 flex justify-end">
+
+        <a
+            href="{{ route('user.checkout.index') }}"
+            class="bg-red-700 hover:bg-red-800 text-white px-8 py-4 rounded-xl font-semibold">
+
+            Checkout
+
+        </a>
+
+    </div>
 
 </div>
 
@@ -244,31 +279,31 @@ Checkout
 
 <div class="bg-white rounded-xl shadow p-12 text-center">
 
-<div class="text-6xl">
+    <div class="text-6xl">
 
-🛒
+        🛒
 
-</div>
+    </div>
 
-<h2 class="text-2xl font-bold mt-4">
+    <h2 class="text-2xl font-bold mt-4">
 
-Keranjang Masih Kosong
+        Keranjang Masih Kosong
 
-</h2>
+    </h2>
 
-<p class="text-gray-500 mt-2">
+    <p class="text-gray-500 mt-2">
 
-Silakan pilih barang dari katalog.
+        Silakan pilih barang dari katalog.
 
-</p>
+    </p>
 
-<a
-href="{{ route('user.katalog.index') }}"
-class="inline-block mt-6 bg-red-700 hover:bg-red-800 text-white px-6 py-3 rounded-xl">
+    <a
+        href="{{ route('user.katalog.index') }}"
+        class="inline-block mt-6 bg-red-700 hover:bg-red-800 text-white px-6 py-3 rounded-xl">
 
-Lihat Katalog
+        Lihat Katalog
 
-</a>
+    </a>
 
 </div>
 

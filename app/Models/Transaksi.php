@@ -10,7 +10,12 @@ class Transaksi extends Model
         'kode_transaksi',
         'user_id',
         'tanggal',
-        'total'
+        'total',
+        'status',
+        'nama_penerima',
+        'telepon',
+        'alamat',
+        'catatan'
     ];
 
     public function user()
