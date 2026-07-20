@@ -15,15 +15,26 @@ class KeranjangController extends Controller
      */
     public function index()
     {
-        $keranjangs = Keranjang::with('barang')
-            ->where('user_id', Auth::id())
-            ->latest()
-            ->get();
+        $keranjangs = Keranjang::with([
+    'barang.kategori'
+])
+->where('user_id', Auth::id())
+->latest()
+->get();
 
-        return view(
-            'user.keranjang.index',
-            compact('keranjangs')
-        );
+$total = $keranjangs->sum(function($item){
+
+    return $item->subtotal;
+
+});
+
+return view(
+    'user.keranjang.index',
+    compact(
+        'keranjangs',
+        'total'
+    )
+);
     }
 
     /**
@@ -98,13 +109,15 @@ class KeranjangController extends Controller
 
             Keranjang::create([
 
-                'user_id' => Auth::id(),
+    'user_id'   => Auth::id(),
 
-                'barang_id' => $request->barang_id,
+    'barang_id' => $barang->id,
 
-                'jumlah' => $request->jumlah,
+    'jumlah'    => $request->jumlah,
 
-            ]);
+    'harga'     => $barang->harga_jual,
+
+]);
 
         }
 

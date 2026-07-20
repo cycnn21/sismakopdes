@@ -1,48 +1,53 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Models;
 
-return new class extends Migration
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Keranjang extends Model
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    use HasFactory;
+
+    protected $fillable = [
+
+        'user_id',
+        'barang_id',
+        'jumlah',
+        'harga',
+
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relasi User
+    |--------------------------------------------------------------------------
+    */
+
+    public function user()
     {
-        Schema::create('keranjangs', function (Blueprint $table) {
-
-            $table->id();
-
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->foreignId('barang_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->unsignedInteger('jumlah')
-                ->default(1);
-
-            $table->timestamps();
-
-            // Satu user hanya boleh memiliki satu baris
-            // untuk satu barang di keranjang
-            $table->unique([
-                'user_id',
-                'barang_id'
-            ]);
-
-        });
+        return $this->belongsTo(User::class);
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    /*
+    |--------------------------------------------------------------------------
+    | Relasi Barang
+    |--------------------------------------------------------------------------
+    */
+
+    public function barang()
     {
-        Schema::dropIfExists('keranjangs');
+        return $this->belongsTo(Barang::class);
     }
-};
+
+    /*
+    |--------------------------------------------------------------------------
+    | Subtotal
+    |--------------------------------------------------------------------------
+    */
+
+    public function getSubtotalAttribute()
+    {
+        return $this->jumlah * $this->harga;
+    }
+}

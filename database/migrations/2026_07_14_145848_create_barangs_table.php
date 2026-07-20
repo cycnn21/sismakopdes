@@ -21,13 +21,11 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
-
             // Relasi supplier
             $table->foreignId('supplier_id')
                 ->constrained('suppliers')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
-
 
             $table->string('kode_barang')->unique();
 
@@ -35,21 +33,23 @@ return new class extends Migration
 
             $table->integer('stok')->default(0);
 
+            // TAMBAHAN
+            $table->integer('stok_minimum')->default(5);
+
             $table->decimal('harga_beli', 12, 2);
 
             $table->decimal('harga_jual', 12, 2);
 
-            $table->string('satuan',30);
+            $table->string('satuan', 30);
 
-            $table->string('status')->nullable();
+            // Lebih baik diberi default
+            $table->string('status')->default('aktif');
 
             $table->string('gambar')->nullable();
 
             $table->text('deskripsi')->nullable();
 
-
             $table->timestamps();
-
         });
     }
 
